@@ -1,0 +1,26 @@
+/* Add to your global CSS file */
+.perspective {
+  perspective: 1000px; /* Adjust as needed */
+}
+
+.card {
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
+}
+
+.card-front,
+.card-back {
+  backface-visibility: hidden;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
