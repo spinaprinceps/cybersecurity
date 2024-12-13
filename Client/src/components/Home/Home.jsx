@@ -1,8 +1,8 @@
 import React from 'react';
 import heroImage from "../../logo/rb.png"; // Replace with your actual image path
-
+import { useNavigate } from 'react-router';
 const Home = () => {
-
+ const navigate=useNavigate();
   const fontStyle = {
     fontFamily: 'Anton, sans-serif',
   };
@@ -17,6 +17,11 @@ const Home = () => {
     { id: 4, title: 'Audit Logs', description: 'View detailed logs of who accessed the files and what actions were performed, ensuring full traceability.' },
     
   ];
+
+  const handleClick = () => {
+    navigate('/dashboard');  
+  }; 
+
   return (
     <>
       {/* Hero Section */}
@@ -60,6 +65,7 @@ const Home = () => {
           ))}
         </div>
       </div>
+      <button onClick={(handleClick)}>dashboard</button>
     </section>
       
       
