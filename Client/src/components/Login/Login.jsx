@@ -5,10 +5,29 @@ import { useNavigate } from "react-router-dom";  // Import useNavigate from reac
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");  // State to hold error message
   const navigate = useNavigate();  // Initialize navigate function
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(""); // Clear any previous error messages
+
+    // Validate email and password
+    if (!email || !password) {
+      setError("Both email and password are required.");
+      return;
+    }
+
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters long.");
+      return;
+    }
+
     try {
       const response = await axios.post("http://localhost:3002/login", {
         email,
@@ -20,11 +39,12 @@ const Login = () => {
         console.log("Login successful:", response.data);
         navigate("/home");  // Navigate to home page after successful login
       } else {
-        console.log("Login failed:", response.data);
+        setError("Invalid email or password.");
       }
-
     } catch (error) {
       console.error("Login failed:", error.response ? error.response.data : error.message);
+      const errorMessage = error.response ? error.response.data : "An error occurred, please try again.";
+      setError(errorMessage);
       // Handle error (e.g., show error message to user)
     }
   };
@@ -33,6 +53,12 @@ const Login = () => {
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
         <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">Login</h1>
+        {error && (
+          <div className="bg-red-100 text-red-700 p-3 rounded-md mb-4">
+            {/* Check if the error is an object and display the message */}
+            {typeof error === "object" ? error.message : error}
+          </div>
+        )}
         <form onSubmit={handleSubmit}>
           {/* Email Field */}
           <label className="block mb-2 text-sm font-medium text-gray-600" htmlFor="email">
