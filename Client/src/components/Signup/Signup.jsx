@@ -2,59 +2,46 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const SignUp = () => {
-  const [name, setName] = useState("");
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(""); // To handle error messages
-  const navigate = useNavigate();
+  const [error, setError] = useState(""); // State to hold error messages
+  const navigate = useNavigate(); // For navigation
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(""); // Reset error state before submission
+    setError(""); // Clear any previous error messages
 
     try {
-      const response = await axios.post("http://localhost:3002/signup", {
-        name,
+      const response = await axios.post("http://localhost:3002/login", {
         email,
         password,
       });
-      console.log(response.data);
-      navigate("/"); // Navigate to home on successful signup
-    } catch (err) {
-      if (err.response) {
-        setError(err.response.data.message || "An error occurred. Please try again.");
+
+      // Check if login was successful and a token was provided
+      if (response.data.token) {
+        localStorage.setItem("authToken", response.data.token); // Save token
+        localStorage.setItem("userName", response.data.name); // Save user name
+        navigate("/dashboard"); // Navigate to dashboard
       } else {
-        setError(err.message || "An error occurred. Please try again.");
+        setError("Login failed. Please try again.");
       }
+    } catch (err) {
+      const errorMessage = err.response?.data?.message || "An error occurred. Please try again.";
+      setError(errorMessage);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center ">
+    <div className="min-h-screen flex items-center justify-center">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h1 className="text-4xl font-bold text-gray-800 mb-6 text-center">Sign Up</h1>
+        <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">Login</h1>
         {error && (
           <div className="bg-red-100 text-red-700 p-3 rounded-md mb-4">
             {error}
           </div>
         )}
         <form onSubmit={handleSubmit}>
-          {/* Name Field */}
-          <label className="block mb-2 text-sm font-medium text-black" htmlFor="name">
-            Name
-          </label>
-          <input
-            type="text"
-            id="name"
-            placeholder="Enter your name"
-            className="w-full px-4 py-2 mb-4 border rounded-md text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-
-          {/* Email Field */}
           <label className="block mb-2 text-sm font-medium text-gray-600" htmlFor="email">
             Email
           </label>
@@ -63,12 +50,10 @@ const SignUp = () => {
             id="email"
             placeholder="Enter your email"
             className="w-full px-4 py-2 mb-4 border rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
-
-          {/* Password Field */}
           <label className="block mb-2 text-sm font-medium text-gray-600" htmlFor="password">
             Password
           </label>
@@ -77,17 +62,15 @@ const SignUp = () => {
             id="password"
             placeholder="Enter your password"
             className="w-full px-4 py-2 mb-6 border rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
-
-          {/* Submit Button */}
           <button
             type="submit"
             className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300"
           >
-            Sign Up
+            Login
           </button>
         </form>
       </div>
@@ -95,4 +78,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default Login;

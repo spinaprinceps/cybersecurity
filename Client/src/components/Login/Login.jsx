@@ -18,21 +18,15 @@ const Login = () => {
         password,
       });
 
-      // Log response to inspect structure
-      console.log("Login Response:", response.data);
-
       // Check if login was successful and a token was provided
       if (response.data.token) {
-        // Save token in localStorage or sessionStorage
-        localStorage.setItem("authToken", response.data.token);
-        
-        // Navigate to the dashboard
-        navigate("/dashboard");
+        localStorage.setItem("authToken", response.data.token); // Save token
+        localStorage.setItem("userName", response.data.name); // Save user name
+        navigate("/dashboard"); // Navigate to dashboard
       } else {
         setError("Login failed. Please try again.");
       }
     } catch (err) {
-      console.error("Error during login:", err.response);
       const errorMessage = err.response?.data?.message || "An error occurred. Please try again.";
       setError(errorMessage);
     }
@@ -48,7 +42,6 @@ const Login = () => {
           </div>
         )}
         <form onSubmit={handleSubmit}>
-          {/* Email Input */}
           <label className="block mb-2 text-sm font-medium text-gray-600" htmlFor="email">
             Email
           </label>
@@ -61,8 +54,6 @@ const Login = () => {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-
-          {/* Password Input */}
           <label className="block mb-2 text-sm font-medium text-gray-600" htmlFor="password">
             Password
           </label>
@@ -75,8 +66,6 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-
-          {/* Submit Button */}
           <button
             type="submit"
             className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300"
