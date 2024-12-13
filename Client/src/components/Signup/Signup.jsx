@@ -31,7 +31,7 @@ const SignUp = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div className="min-h-screen flex items-center justify-center ">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
         <h1 className="text-4xl font-bold text-gray-800 mb-6 text-center">Sign Up</h1>
         {error && (
@@ -41,14 +41,14 @@ const SignUp = () => {
         )}
         <form onSubmit={handleSubmit}>
           {/* Name Field */}
-          <label className="block mb-2 text-sm font-medium text-gray-600" htmlFor="name">
+          <label className="block mb-2 text-sm font-medium text-black" htmlFor="name">
             Name
           </label>
           <input
             type="text"
             id="name"
             placeholder="Enter your name"
-            className="w-full px-4 py-2 mb-4 border rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 mb-4 border rounded-md text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
             value={name}
             onChange={(e) => setName(e.target.value)}

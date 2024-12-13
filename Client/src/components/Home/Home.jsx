@@ -45,7 +45,7 @@ const Home = () => {
           </div>
         </div>
       </section>
- <section className="bg-[#0570B8] text-white mx-auto">
+ <section className="bg-[#0570B8] text-white mx-auto mt-0 mb-48">
       <div className="container mx-auto px-6 lg:px-20">
         <h2 className="text-4xl font-bold text-center text-[#00171f] mb-10">Our Key Features</h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">

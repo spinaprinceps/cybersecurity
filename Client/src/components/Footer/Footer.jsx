@@ -1,18 +1,13 @@
-import React from 'react'
-import logo from '../../logo/logo.png'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInstagram } from '@fortawesome/free-brands-svg-icons/faInstagram';
-import { faLinkedin } from '@fortawesome/free-brands-svg-icons/faLinkedin';
-import { faFacebook } from '@fortawesome/free-brands-svg-icons/faFacebook';
+import React from 'react';
 
 const Footer = () => {
-    return (
-        <>
-            <footer className="bg-[rgb(18,18,18)]">
-                <h1>copyrights</h1>
-            </footer>
-        </>
-    )
+  return (
+    <footer className="bg-[rgb(18,18,18)] text-white py-4">
+      <div className="text-center">
+        <span className="text-sm">&copy; 2024 Your Company. All Rights Reserved.</span>
+      </div>
+    </footer>
+  );
 }
 
-export default Footer
+export default Footer;

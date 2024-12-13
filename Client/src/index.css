@@ -11,9 +11,9 @@
   --color-light-blue: #00a8e8;    /* Bright accent for hover effects or highlights */
   --color-white: #ffffff;         /* White for text and prominent areas */
 
-  /* Apply the main background color */
+  /* Apply the new background color */
   color: var(--color-white);
-  background-color: var(--color-dark-blue); /* Set entire page background to #003459 */
+  background-color: #0570B8; /* Set entire page background to #0570B8 */
   overflow-x: hidden;
 }
 
@@ -25,9 +25,9 @@ body::-webkit-scrollbar-track {
   background: var(--color-teal-blue); /* Teal blue for the track */
 }
 body::-webkit-scrollbar-thumb {
-  background-color: var(--color-light-blue); /* Bright accent for the thumb */
+  background-color: var(--color-dark-blue); /* Darker accent for the thumb */
   border-radius: 10px;
-  border: 1px solid var(--color-dark-blue); /* Blend thumb with the background */
+  border: 1px solid var(--color-light-blue); /* Blend thumb with the background */
 }
 
 /* Additional styling for buttons, hover effects, etc. */
