@@ -65,7 +65,7 @@ const Home = () => {
           ))}
         </div>
       </div>
-      <button onClick={(handleClick)}>dashboard</button>
+      
     </section>
       
       

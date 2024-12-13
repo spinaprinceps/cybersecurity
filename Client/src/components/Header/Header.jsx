@@ -20,7 +20,7 @@ const Header = () => {
                 <nav className='flex justify-between items-center w-[92%] mx-auto py-2'>
                     <div>
                         <Link to='/'>
-                            <img src={logo} alt="logo" className='w-[35vh]' />
+                            <img src={logo} alt="logo" className='w-[20vh]' />
                         </Link>
                     </div>
 
