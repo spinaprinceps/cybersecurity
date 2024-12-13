@@ -17,7 +17,7 @@ const Header = () => {
     return (
         <>
             <header className="bg-[#041014]">
-                <nav className='flex justify-between items-center w-[92%] mx-auto py-5'>
+                <nav className='flex justify-between items-center w-[92%] mx-auto py-2'>
                     <div>
                         <Link to='/'>
                             <img src={logo} alt="logo" className='w-[35vh]' />
@@ -31,7 +31,7 @@ const Header = () => {
                                     <NavLink
                                         to="/"
                                         className={({ isActive }) =>
-                                            `block py-2 pr-4 pl-3 duration-200 ${
+                                            `block py-1 pr-4 pl-3 duration-200 ${
                                                 isActive ? 'text-[#00a8e8]' : 'text-[#ffffff]'
                                             } border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-[#007ea7] lg:p-0`
                                         }>
@@ -47,6 +47,17 @@ const Header = () => {
                                             } border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-[#007ea7] lg:p-0`
                                         }>
                                         SIGN UP
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink
+                                        to="Login"
+                                        className={({ isActive }) =>
+                                            `block py-2 pr-4 pl-3 duration-200 ${
+                                                isActive ? 'text-[#00a8e8]' : 'text-[#ffffff]'
+                                            } border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-[#007ea7] lg:p-0`
+                                        }>
+                                        LOGIN
                                     </NavLink>
                                 </li>
                             </ul>

@@ -17,7 +17,7 @@ const SignUp = () => {
       .then((result) => {
         console.log(result);
         // On successful signup, navigate to the login page
-        navigate('/login');
+        navigate('/home');
       })
       .catch((err) => console.log(err));
   };
@@ -25,7 +25,7 @@ const SignUp = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">Sign Up</h1>
+        <h1 className="text-4xl font-bold text-gray-800 mb-6 text-center">Sign Up</h1>
         <form onSubmit={handleSubmit}>
           {/* Email Field */}
           <label className="block mb-2 text-sm font-medium text-gray-600" htmlFor="email">
