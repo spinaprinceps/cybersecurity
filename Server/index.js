@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken");
 const { z } = require("zod");
 const clientModel = require("./models/Client");
 
+
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -18,24 +19,23 @@ mongoose.connect("mongodb+srv://sharadsr69:sharad%40123@cluster0.vcqbw.mongodb.n
 
 // Zod schema for validation
 const signupSchema = z.object({
-    name: z.string().optional(),
+    name: z.string(),
     email: z.string().email("Invalid email address"),
     password: z.string().min(6, "Password must be at least 6 characters"),
-  });
-  
+});
 
 const loginSchema = z.object({
   email: z.string().email("Invalid email address"),
   password: z.string().min(6, "Password must be at least 6 characters")
 });
 
-// JWT secret key
-const JWT_SECRET = "CYBER";
+// JWT secret key (from environment variable)
+const JWT_SECRET = process.env.JWT_SECRET || "defaultsecret";
 
 // Middleware to protect routes
 const authenticateToken = (req, res, next) => {
   const token = req.headers["authorization"]?.split(" ")[1];
-  
+
   if (!token) return res.status(401).json({ message: "No token provided" });
 
   jwt.verify(token, JWT_SECRET, (err, user) => {
@@ -48,9 +48,13 @@ const authenticateToken = (req, res, next) => {
 // SignUp endpoint
 app.post("/signup", async (req, res) => {
     try {
+      console.log("Incoming request body:", req.body);
+  
       // Validate input data
       const result = signupSchema.parse(req.body);
-      const { email, password } = result;
+      const { name, email, password } = result;
+  
+      console.log("Validated data:", result);
   
       // Check if user already exists
       const existingUser = await clientModel.findOne({ email });
@@ -61,20 +65,21 @@ app.post("/signup", async (req, res) => {
       // Hash the password before storing
       const hashedPassword = await bcrypt.hash(password, 10);
   
-      // Create a new user (without name)
+      // Create a new user
       const newUser = new clientModel({
+        name,
         email,
         password: hashedPassword,
       });
   
       await newUser.save();
   
-      res.status(201).json({ message: "User created successfully", user: { email } });
+      res.status(201).json({ message: "User created successfully", user: { name, email } });
     } catch (error) {
+      console.error("Signup error:", error);
       res.status(400).json({ error: error.message });
     }
   });
-  
   
 
 // Login endpoint
