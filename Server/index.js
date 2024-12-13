@@ -6,8 +6,6 @@ const jwt = require("jsonwebtoken");
 const multer = require("multer"); // For file uploads
 const { z } = require("zod");
 const clientModel = require("./models/Client");
-const financialModel = require("./models/financial"); // Model for financial data
-const { encrypt, decrypt } = require("./helpers/encryption"); // Encryption helper functions
 
 // Load environment variables from .env file
 require('dotenv').config();
@@ -15,7 +13,6 @@ require('dotenv').config();
 const app = express();
 app.use(express.json());
 app.use(cors());
-
 // Multer setup for file uploads
 const upload = multer({ storage: multer.memoryStorage() });
 
@@ -82,23 +79,45 @@ app.post("/signup", async (req, res) => {
 // Login endpoint
 app.post("/login", async (req, res) => {
   try {
+    // Validate the login data using Zod schema
     const result = loginSchema.parse(req.body);
     const { email, password } = result;
 
+    // Log the input
+    console.log("Login attempt with email:", email);
+
+    // Find the user in the database
     const user = await clientModel.findOne({ email });
     if (!user) {
+      console.log("User not found");
       return res.status(400).json({ message: "User not found" });
     }
 
+    console.log("User found:", user);
+
+    // Compare the entered password with the stored hashed password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
+      console.log("Invalid password");
       return res.status(400).json({ message: "Invalid password" });
     }
 
-    const token = jwt.sign({ userId: user._id, email: user.email }, JWT_SECRET, { expiresIn: "1h" });
+    console.log("Password matched");
 
+    // Generate a JWT token for the authenticated user
+    const token = jwt.sign(
+      { userId: user._id, email: user.email },
+      JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+
+    // Log the token
+    console.log("Generated Token:", token);
+
+    console.log("Login successful");
     res.json({ message: "Login successful", token });
   } catch (error) {
+    console.error("Error during login:", error.message);
     res.status(400).json({ error: error.message });
   }
 });
@@ -116,16 +135,8 @@ app.post("/upload", upload.single('file'), async (req, res) => {
   try {
     const fileData = JSON.parse(req.file.buffer.toString('utf8'));
 
-    const encryptedData = fileData.map(record => ({
-      accountId: record.accountId,
-      accountHolderName: record.accountHolderName,
-      balance: encrypt(record.balance.toString()),
-      transactions: encrypt(JSON.stringify(record.transactions)),
-      lastUpdated: encrypt(record.lastUpdated),
-    }));
-
-    await financialModel.insertMany(encryptedData);
-    res.status(200).send({ message: 'Data uploaded and encrypted successfully' });
+    await financialModel.insertMany(fileData);
+    res.status(200).send({ message: 'Data uploaded successfully' });
   } catch (err) {
     res.status(500).send({ error: 'Failed to process file' });
   }
