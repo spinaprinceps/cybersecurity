@@ -18,7 +18,7 @@ const Dashboard = () => {
   return (
     <div className="flex h-screen">
       <div
-        className="flex-1 flex items-center justify-center border cursor-pointer">
+        className="flex-1 flex items-center justify-center  cursor-pointer">
         <div 
         className="w-52 h-52 hover:scale-110 transition-transform duration-300 "onClick={triggerFileUpload}>
       
@@ -26,17 +26,21 @@ const Dashboard = () => {
           src={left}
           alt="Left Placeholder"
           className="max-w-1/2 max-h-1/2"
+
         />
+        
         <input
           id="file-input"
           type="file"
           className="hidden"
           onChange={handleFileUpload}
         />
+        <h1 className='text-3xl text-[#041014] font-mono '>Upload file </h1>
       </div>
+
       </div>
       <div className="flex-1 flex items-center justify-center ">
-        
+        <div className="w-52 h-52 hover:scale-110 transition-transform duration-300 "onClick={triggerFileUpload} >
         {rightImageVisible && (
           <img
             src={right}
@@ -45,6 +49,8 @@ const Dashboard = () => {
           />
       
         )}
+         <h1 className='text-3xl text-[#041014] font-mono '>Upload file </h1>
+        </div>
       </div>
     </div>
   );
