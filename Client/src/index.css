@@ -2,20 +2,45 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Root styles for custom dark theme */
 :root {
-  color: #ffffff;
-  background-color: #000;
+  /* Main colors */
+  --color-deep-dark-blue: #00171f; /* Alternate dark blue */
+  --color-dark-blue: #003459;     /* Main background color */
+  --color-teal-blue: #007ea7;     /* Accent color for interactive elements */
+  --color-light-blue: #00a8e8;    /* Bright accent for hover effects or highlights */
+  --color-white: #ffffff;         /* White for text and prominent areas */
+
+  /* Apply the main background color */
+  color: var(--color-white);
+  background-color: var(--color-dark-blue); /* Set entire page background to #003459 */
   overflow-x: hidden;
 }
 
+/* Custom scrollbar styling */
 body::-webkit-scrollbar {
   width: 10px;
 }
 body::-webkit-scrollbar-track {
-  background: rgb(87, 87, 87);
+  background: var(--color-teal-blue); /* Teal blue for the track */
 }
 body::-webkit-scrollbar-thumb {
-  background-color: rgb(18, 18, 18);
+  background-color: var(--color-light-blue); /* Bright accent for the thumb */
   border-radius: 10px;
-  border: 1px solid gray;
+  border: 1px solid var(--color-dark-blue); /* Blend thumb with the background */
+}
+
+/* Additional styling for buttons, hover effects, etc. */
+button {
+  background-color: var(--color-teal-blue); /* Button background */
+  color: var(--color-white); /* Button text */
+  border: 1px solid var(--color-light-blue); /* Border for contrast */
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+button:hover {
+  background-color: var(--color-light-blue); /* Brighter on hover */
+  color: var(--color-dark-blue); /* Contrast with bright background */
 }

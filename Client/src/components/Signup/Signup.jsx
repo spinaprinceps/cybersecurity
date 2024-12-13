@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
+  const[name,setName]=useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ const SignUp = () => {
 
     // Sending the data to the backend
     axios
-      .post('http://localhost:3002/signup', { email, password })
+      .post('http://localhost:3002/signup', { name,email, password })
       .then((result) => {
         console.log(result);
         // On successful signup, navigate to the login page
@@ -27,6 +28,17 @@ const SignUp = () => {
         <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">Sign Up</h1>
         <form onSubmit={handleSubmit}>
           {/* Email Field */}
+          <label className="block mb-2 text-sm font-medium text-gray-600" htmlFor="email">
+            Name
+          </label>
+          <input
+            type="text"
+            id="name"
+            placeholder="Enter your name"
+            className="w-full px-4 py-2 mb-4 border rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+            onChange={(e) => setName(e.target.value)}
+          />
           <label className="block mb-2 text-sm font-medium text-gray-600" htmlFor="email">
             Email
           </label>
