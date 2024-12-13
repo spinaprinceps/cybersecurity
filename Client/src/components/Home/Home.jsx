@@ -35,7 +35,7 @@ const Home = () => {
             <p className="text-lg text-gray-300 mb-6" style={lexend}>
               Upload, encrypt, and securely share your files while keeping your data private.
             </p>
-            <button className="px-6 py-3 text-3xl bg-[#041014] text-white rounded-md hover:bg-[#041014c7] transition duration-300">
+            <button className="px-6 py-3 text-3xl bg-[#041014] text-white rounded-mdh hover:scale-110 transition-transform duration-300">
               Get Started
             </button>
           </div>
