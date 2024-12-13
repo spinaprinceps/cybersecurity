@@ -33,7 +33,7 @@ const Header = () => {
                                         className={({ isActive }) =>
                                             `block py-1 pr-4 pl-3 duration-200 ${
                                                 isActive ? 'text-[#00a8e8]' : 'text-[#ffffff]'
-                                            } border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-[#007ea7] lg:p-0`
+                                            } border-b text-sm border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-[#007ea7] lg:p-0`
                                         }>
                                         HOME
                                     </NavLink>
